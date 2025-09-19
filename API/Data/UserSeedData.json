@@ -1,0 +1,62 @@
+[
+    {
+        "Id": "admin-id",
+        "Email": "admin@test.com",
+        "DisplayName": "Admin",
+        "Role": "Admin"
+    },
+    {
+        "Id": "karen-id",
+        "Email": "karen@test.com",
+        "DisplayName": "Karen",
+        "Role": "User"
+    },
+    {
+        "Id": "margo-id",
+        "Email": "margo@test.com",
+        "DisplayName": "Margo",
+        "Role": "User"
+    },
+    {
+        "Id": "lois-id",
+        "Email": "lois@test.com",
+        "DisplayName": "Lois",
+        "Role": "User"
+    },
+    {
+        "Id": "ruthie-id",
+        "Email": "ruthie@test.com",
+        "DisplayName": "Ruthie",
+        "Role": "User"
+    },
+    {
+        "Id": "todd-id",
+        "Email": "todd@test.com",
+        "DisplayName": "Todd",
+        "Role": "User"
+    },
+    {
+        "Id": "porter-id",
+        "Email": "porter@test.com",
+        "DisplayName": "Porter",
+        "Role": "User"
+    },
+    {
+        "Id": "mayo-id",
+        "Email": "mayo@test.com",
+        "DisplayName": "Mayo",
+        "Role": "User"
+    },
+    {
+        "Id": "skinner-id",
+        "Email": "skinner@test.com",
+        "DisplayName": "Skinner",
+        "Role": "User"
+    },
+    {
+        "Id": "davis-id",
+        "Email": "davis@test.com",
+        "DisplayName": "Davis",
+        "Role": "User"
+    }
+]
