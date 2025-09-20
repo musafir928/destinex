@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "HmwwHVG5rQg=",
+  "dgSpecHash": "Ph6FrQO+dxI=",
   "success": true,
-  "projectFilePath": "/Users/adil/Desktop/destinex/API/API.csproj",
+  "projectFilePath": "/Users/adil/Desktop/destinex/api/API.csproj",
   "expectedPackageFiles": [
     "/Users/adil/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
     "/Users/adil/.nuget/packages/microsoft.aspnetcore.authentication.jwtbearer/8.0.20/microsoft.aspnetcore.authentication.jwtbearer.8.0.20.nupkg.sha512",
