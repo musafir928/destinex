@@ -1,1 +1,54 @@
-<p>user works!</p>
+<div class="p-4 max-w-lg mx-auto">
+  <h2 class="text-xl font-bold mb-2">Weather Search</h2>
+
+  <!-- Input with signals -->
+ <input [(ngModel)]="location" name="location" type="text" class="input w-full mb-3" placeholder="Location">
+
+  <!-- Button -->
+  <button
+    class="btn btn-primary w-full"
+    (click)="searchWeather()"
+    [disabled]="loading()"
+  >
+    {{ loading() ? 'Loading...' : 'Get Weather' }}
+  </button>
+
+  <!-- Error -->
+  @if (error()) {
+    <div class="text-red-600 mt-2">
+      {{ error() }}
+    </div>
+  }
+
+  <!-- Results -->
+  @if (weather(); as forecast) {
+    <div class="mt-4 space-y-4">
+      <div class="p-4 rounded-lg shadow bg-gray-100">
+        <h3 class="text-lg font-semibold">
+          {{ forecast.location }}, {{ forecast.region }}, {{ forecast.country }}
+        </h3>
+        <p class="text-gray-700">Current: {{ forecast.currentC }}°C</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div class="card bg-base-100 shadow p-3">
+          <h4 class="font-bold">Today</h4>
+          <p>Min: {{ forecast.todayMinC }}°C</p>
+          <p>Max: {{ forecast.todayMaxC }}°C</p>
+        </div>
+
+        <div class="card bg-base-100 shadow p-3">
+          <h4 class="font-bold">Tomorrow</h4>
+          <p>Min: {{ forecast.tomorrowMinC }}°C</p>
+          <p>Max: {{ forecast.tomorrowMaxC }}°C</p>
+        </div>
+
+        <div class="card bg-base-100 shadow p-3">
+          <h4 class="font-bold">After Tomorrow</h4>
+          <p>Min: {{ forecast.afterTomorrowMinC }}°C</p>
+          <p>Max: {{ forecast.afterTomorrowMaxC }}°C</p>
+        </div>
+      </div>
+    </div>
+  }
+</div>

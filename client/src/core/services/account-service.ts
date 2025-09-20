@@ -10,10 +10,10 @@ export class AccountService {
   private http = inject(HttpClient);
   currentUser = signal<User | null>(null);
 
-  baseUrl = 'http://localhost:5001/api/';
+  baseUrl = 'http://localhost:5001/';
 
   register(creds: RegisterCreds) {
-    return this.http.post<User>(`${this.baseUrl}auth/register`, creds).pipe(
+    return this.http.post<User>(`${this.baseUrl}api/auth/register`, creds).pipe(
       tap((user) => {
         if (user) {
           this.setCurrentUser(user);
@@ -23,7 +23,7 @@ export class AccountService {
   }
 
   login(creds: LoginCreds) {
-    return this.http.post<User>(`${this.baseUrl}auth/login`, creds).pipe(
+    return this.http.post<User>(`${this.baseUrl}api/auth/login`, creds).pipe(
       tap((user) => {
         if (user) {
           this.setCurrentUser(user);
