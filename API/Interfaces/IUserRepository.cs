@@ -1,3 +1,4 @@
+using API.DTOs;
 using API.Entities;
 using Microsoft.AspNetCore.Mvc;
 
@@ -5,10 +6,7 @@ namespace API.Interfaces;
 
 public interface IUserRepository
 {
-    void Update(User user);
-    Task<ActionResult<IReadOnlyList<User>>> GetUsersAsync();
-    Task<ActionResult<User?>> GetUserByIdAsync(string id);
-    Task<ActionResult<User?>> GetUserForUpdate(string id);
-
-    Task<ActionResult<bool>> SaveAllAsync();
+    Task<IEnumerable<User>> GetUsersAsync(string currentUserId);
+    Task<User?> UpdateUserRoleAsync(UpdateUserDto user);
+    Task<bool> DeleteUserAsync(string id);
 }

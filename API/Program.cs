@@ -24,6 +24,7 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<WeatherApiService>();
 
 // CORS
@@ -58,7 +59,7 @@ app.UseMiddleware<ExceptionMiddleware>();
 app.UseCors(x =>
     x.AllowAnyHeader()
         .AllowAnyMethod()
-        .WithOrigins("http://localhost:4200", "https://localhost:4200")
+        .WithOrigins("http://localhost:4200", "https://localhost:4200", "*")
 );
 
 app.UseAuthentication();

@@ -1,4 +1,3 @@
-using System;
 using API.Enums;
 
 namespace API.DTOs;
@@ -11,3 +10,10 @@ public class UserDto
     public required Role Role { get; set; }
     public required string Token { get; set; }
 }
+
+public class UpdateUserDto
+{
+    public required string Id { get; set; }
+    public required Role Role { get; set; }
+}
+

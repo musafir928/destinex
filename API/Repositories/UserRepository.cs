@@ -1,35 +1,37 @@
 using API.Data;
+using API.DTOs;
 using API.Entities;
 using API.Interfaces;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Repositories;
 
 public class UserRepository(AppDbContext context) : IUserRepository
 {
-    public async Task<ActionResult<User?>> GetUserByIdAsync(string id)
+
+    public async Task<IEnumerable<User>> GetUsersAsync(string currentUserId)
     {
-        return await context.Users.FindAsync(id);
+        return await context.Users.Where(u => u.Id != currentUserId).AsNoTracking().ToListAsync();
     }
 
-    public async Task<ActionResult<User?>> GetUserForUpdate(string id)
+    public async Task<User?> UpdateUserRoleAsync(UpdateUserDto user)
     {
-        return await context.Users.SingleOrDefaultAsync(x => x.Id == id);
+        var existing = await context.Users.FindAsync(user.Id);
+        if (existing == null) return null;
+
+        existing.Role = user.Role;
+
+        await context.SaveChangesAsync();
+        return existing;
     }
 
-    public async Task<ActionResult<IReadOnlyList<User>>> GetUsersAsync()
+    public async Task<bool> DeleteUserAsync(string id)
     {
-        return await context.Users.ToListAsync();
-    }
+        var user = await context.Users.FindAsync(id);
+        if (user == null) return false;
 
-    public async Task<ActionResult<bool>> SaveAllAsync()
-    {
-        return await context.SaveChangesAsync() > 0;
-    }
-
-    public void Update(User user)
-    {
-        context.Entry(user).State = EntityState.Modified;
+        context.Users.Remove(user);
+        await context.SaveChangesAsync();
+        return true;
     }
 }
