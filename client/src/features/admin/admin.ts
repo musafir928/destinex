@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Role, User } from '../../types/user';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-admin',
@@ -9,7 +10,7 @@ import { Role, User } from '../../types/user';
 })
 export class Admin {
   private http = inject(HttpClient);
-  private baseUrl = 'http://localhost:5001/';
+  private baseUrl = environment.appUrl;
 
   users = signal<User[]>([]);
   loading = signal(false);
@@ -22,7 +23,7 @@ export class Admin {
 
   loadUsers() {
     this.loading.set(true);
-    this.http.get<User[]>(`${this.baseUrl}api/admin/users`).subscribe({
+    this.http.get<User[]>(`${this.baseUrl}/api/admin/users`).subscribe({
       next: (res) => {
         this.users.set(res);
         this.loading.set(false);
@@ -32,7 +33,7 @@ export class Admin {
   }
 
   updateRole(userId: string, role: Role) {
-    this.http.post<User>(`${this.baseUrl}api/admin/update/role`, { role, id: userId }).subscribe({
+    this.http.post<User>(`${this.baseUrl}/api/admin/update/role`, { role, id: userId }).subscribe({
       next: (updated) => {
         this.users.update((list) =>
           list.map((u) => (u.id === userId ? { ...u, role: updated.role } : u))
@@ -42,7 +43,7 @@ export class Admin {
   }
 
   deleteUser(userId: string) {
-    this.http.delete(`${this.baseUrl}api/admin/${userId}`).subscribe({
+    this.http.delete(`${this.baseUrl}/api/admin/${userId}`).subscribe({
       next: () => {
         this.users.update((list) => list.filter((u) => u.id !== userId));
       },

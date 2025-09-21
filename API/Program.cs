@@ -66,7 +66,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-// app.MapFallbackToController("Index", "Fallback");
+app.UseStaticFiles();
+app.MapFallbackToController("Index", "Fallback");
 
 // seed users
 using var scope = app.Services.CreateScope();
