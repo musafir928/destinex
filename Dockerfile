@@ -1,22 +1,24 @@
-FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine AS build
-WORKDIR /source
-
-COPY API/*.csproj .
-RUN dotnet restore
-
-COPY API/. .
-RUN dotnet publish --no-restore -o /app
-
 FROM node:24-alpine AS client-build
-WORKDIR home/node
+WORKDIR /app/client
+COPY ./client/ ./
+RUN npm ci
+RUN npm run build -- --configuration production
 
-COPY client/. .
-RUN npm ci 
-RUN npm run build
+FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine AS build
+WORKDIR /src
 
-FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine
-COPY --from=build /app .
-COPY --from=client-build home-node/dist/client/browser wwwroot/
+COPY ./API/*.csproj ./api/
+RUN dotnet restore ./api
 
+COPY ./API/ ./api/
+WORKDIR /src/api
+
+COPY --from=client-build /app/client/dist ./wwwroot/
+
+RUN dotnet publish -c Release -o /app/publish
+
+FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine AS final
+WORKDIR /app
+COPY --from=build /app/publish .
 EXPOSE 8080
-ENTRYPOINT [ "./API" ]
+ENTRYPOINT ["dotnet", "API.dll"]

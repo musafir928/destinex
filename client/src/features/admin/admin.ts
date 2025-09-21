@@ -1,7 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Role, User } from '../../types/user';
-import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-admin',
@@ -10,7 +9,7 @@ import { environment } from '../../environments/environment';
 })
 export class Admin {
   private http = inject(HttpClient);
-  private baseUrl = environment.appUrl;
+  private baseUrl = '';
 
   users = signal<User[]>([]);
   loading = signal(false);
